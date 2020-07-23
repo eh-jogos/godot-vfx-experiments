@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://experiments/shockwave/shaders/donut_mask.shader" type="Shader" id=1]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/torus_thickness = 0.18
+shader_param/torus_hardness = 1.223
+shader_param/torus_radius = 0.34
+shader_param/torus_invert = -1.0
+shader_param/torus_center = Vector2( 0.5, 0.5 )
+shader_param/torus_resolution = Vector2( 1.778, 1 )
+
+[node name="DonutShaderPreview" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Donut" type="ColorRect" parent="."]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
