@@ -10,7 +10,9 @@ uniform vec2 torus_resolution = vec2(1.0, 1.0);
 uniform float displacement_amount;
 
 void fragment(){
-	float torus_distance = length((UV - torus_center) * torus_resolution);
+	vec2 screen_position = (UV - torus_center) * torus_resolution;
+	
+	float torus_distance = length(screen_position);
 	float radius_difference = torus_thickness / 2.0;
 	float inner_radius = torus_radius - radius_difference;
 	
@@ -24,7 +26,9 @@ void fragment(){
 	float torus_invert_value = clamp(abs(sign(torus_invert)) - sign(torus_invert), 0.0, 1.0);
 	float mask = abs(torus_invert_value - circle_alpha) * abs(torus_invert);
 	
-	vec2 displaced_uv = UV + mask * displacement_amount;
+	vec2 screen_quadrants = sign(screen_position);
+	float total_displacement = mask * displacement_amount;
+	vec2 displaced_uv = vec2(UV.x + total_displacement * screen_quadrants.x, UV.y + total_displacement * screen_quadrants.y);
 	
 	vec4 distored_color = texture(TEXTURE, displaced_uv);
 	

@@ -1,19 +1,99 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://experiments/blur/scene_elements/Bg00.tscn" type="PackedScene" id=1]
 [ext_resource path="res://experiments/blur/scene_elements/Bg01.tscn" type="PackedScene" id=2]
 [ext_resource path="res://experiments/blur/scene_elements/Bg02.tscn" type="PackedScene" id=3]
 [ext_resource path="res://experiments/shockwave/shaders/shockwave.shader" type="Shader" id=4]
+[ext_resource path="res://experiments/shockwave/bg3_boss/BackRowBossSkin.tscn" type="PackedScene" id=5]
+[ext_resource path="res://main_menu/GoBackButton.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 4 )
-shader_param/torus_thickness = 0.096
-shader_param/torus_hardness = 1.179
-shader_param/torus_radius = 0.421
+shader_param/torus_thickness = 0.103
+shader_param/torus_hardness = 1.152
+shader_param/torus_radius = -0.06
 shader_param/torus_invert = -0.526
-shader_param/torus_center = Vector2( 0.5, 0.5 )
+shader_param/torus_center = Vector2( 0.415, 0.481 )
 shader_param/torus_resolution = Vector2( 1.778, 1 )
-shader_param/displacement_amount = 0.05
+shader_param/displacement_amount = 0.08
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 6.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("ViewportContainer/Viewport/BG/BackRowBossSkin:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.7, 2.9, 3, 5.1, 5.2, 5.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 272.817, 186.473 ), Vector2( 272.817, 186.473 ), Vector2( 287.817, 201.473 ), Vector2( 287.817, 176.473 ), Vector2( 287.817, 176.473 ), Vector2( 287.817, 201.473 ), Vector2( 272.817, 186.473 ) ]
+}
+tracks/1/type = "animation"
+tracks/1/path = NodePath("ViewportContainer/Viewport/BG/BackRowBossSkin/AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": PoolStringArray( "idle", "idle", "to_angry", "angry_loop", "angry_loop", "to_scream", "first_scream", "scream_loop", "scream_loop", "from_angry", "idle" ),
+"times": PoolRealArray( 0, 0.7, 1.4, 1.7, 2.2, 2.7, 3, 3.7, 4.4, 5.1, 5.4 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ViewportContainer:material:shader_param/torus_radius")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3, 3.6, 3.7, 4.3, 4.4, 5 ),
+"transitions": PoolRealArray( 1, 1, 0, 1, 0, 1, 0 ),
+"update": 0,
+"values": [ -0.06, -0.06, 1.206, -0.06, 1.206, -0.06, 1.206 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ViewportContainer:rect_rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, -3.0, 3.0, -3.0, 3.0, -3.0, 3.0, -3.0, 3.0, -3.0, 3.0, -3.0, 3.0, -3.0, 3.0, -3.0, 3.0, -3.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ViewportContainer:rect_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 3, 3.1, 4.9, 5.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "shouting"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ViewportContainer/Viewport/BG/BackRowBossSkin:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 287.817, 176.473 ) ]
+}
 
 [node name="Shockwave" type="Control"]
 anchor_right = 1.0
@@ -26,6 +106,7 @@ __meta__ = {
 material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 350, 200 )
 stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -38,6 +119,36 @@ render_target_update_mode = 3
 
 [node name="BG" parent="ViewportContainer/Viewport" instance=ExtResource( 1 )]
 
+[node name="BackRowBossSkin" parent="ViewportContainer/Viewport/BG" instance=ExtResource( 5 )]
+position = Vector2( 272.817, 186.473 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="EyeShape" parent="ViewportContainer/Viewport/BG/BackRowBossSkin/Eye" index="0"]
+animation = "idle"
+frame = 0
+
+[node name="Iris" parent="ViewportContainer/Viewport/BG/BackRowBossSkin/Eye" index="1"]
+position = Vector2( 3.17539, 8.2041 )
+animation = "idle"
+frame = 0
+
+[node name="MouthShape" parent="ViewportContainer/Viewport/BG/BackRowBossSkin/Mouth" index="0"]
+animation = "idle"
+frame = 0
+
+[node name="Teeth" parent="ViewportContainer/Viewport/BG/BackRowBossSkin/Mouth" index="1"]
+animation = "idle"
+frame = 0
+
 [node name="Bg01" parent="ViewportContainer/Viewport" instance=ExtResource( 2 )]
 
 [node name="Bg02" parent="ViewportContainer/Viewport" instance=ExtResource( 3 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/idle = SubResource( 2 )
+anims/shouting = SubResource( 3 )
+
+[node name="GoBackButton" parent="." instance=ExtResource( 6 )]
+
+[editable path="ViewportContainer/Viewport/BG/BackRowBossSkin"]
