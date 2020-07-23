@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://fonts/eh_jogos_source/MavenPro-SemiBold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://experiments/outlines/pngs/fantasmagoria/portrait_x069_@0.2x_m020.png" type="Texture" id=2]
+[ext_resource path="res://experiments/dissolve/shaders/dissolve2d.shader" type="Shader" id=3]
+[ext_resource path="res://experiments/dissolve/glow_dissolve2d_gles2.tres" type="Environment" id=4]
+[ext_resource path="res://main_menu/GoBackButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://experiments/dissolve/DissolveX069.gd" type="Script" id=6]
+[ext_resource path="res://experiments/dissolve/X069SpeechBubles.gd" type="Script" id=7]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+seed = 4
+period = 82.0
+persistence = 0.763
+lacunarity = 1.76
+
+[sub_resource type="NoiseTexture" id=2]
+seamless = true
+noise = SubResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 3 )
+shader_param/burn_color = Color( 1, 0, 0, 1 )
+shader_param/burn_size = 0.08
+shader_param/dissolve_amount = 0.491
+shader_param/emission_amount = 5.0
+shader_param/dissolve_texture = SubResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = -5
+extra_spacing_bottom = -5
+font_data = ExtResource( 1 )
+
+[node name="Dissolve2D" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 4 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoBackButton" parent="CanvasLayer" instance=ExtResource( 5 )]
+
+[node name="X069" type="Sprite" parent="."]
+material = SubResource( 3 )
+position = Vector2( 354.92, 211.893 )
+texture = ExtResource( 2 )
+region_rect = Rect2( 20, 20, 190, 318 )
+script = ExtResource( 6 )
+effect_duration = 3.0
+
+[node name="Area2D" type="Area2D" parent="X069"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="X069/Area2D"]
+polygon = PoolVector2Array( -85.8015, 138.58, -85.8015, 46.8191, -65.3165, 12.8646, -38.3774, -1.72742, -54.6531, -116.78, -45.954, -135.02, -33.607, -140.071, 28.4091, -139.79, 35.4244, -133.336, 57.8737, -18.0031, 86.2158, 0.798126, 86.777, 138.3 )
+
+[node name="Tween" type="Tween" parent="X069"]
+
+[node name="Balloon" type="Polygon2D" parent="X069"]
+modulate = Color( 0.890196, 0.890196, 0.890196, 1 )
+position = Vector2( -354.92, -212.226 )
+antialiased = true
+polygon = PoolVector2Array( 300.034, 197.931, 274.005, 195.595, 71.1485, 197.369, 67.9987, 126.813, 277.008, 128.519, 276.007, 183.581 )
+script = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="X069/Balloon"]
+margin_left = 69.0
+margin_top = 128.0
+margin_right = 276.0
+margin_bottom = 197.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "OH NO!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="X069/Balloon"]

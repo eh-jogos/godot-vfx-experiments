@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://main_menu/themes/eh_jogos_theme.tres" type="Theme" id=1]
+[ext_resource path="res://main_menu/SceneChanger.gd" type="Script" id=2]
+
+[node name="GoBackButton" type="Button"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -45.0
+margin_top = -31.0
+margin_right = 45.0
+theme = ExtResource( 1 )
+text = "Go Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SceneChanger" type="Node" parent="."]
+script = ExtResource( 2 )
+_next_scene_path = "res://main_menu/ExperimentsMenu.tscn"

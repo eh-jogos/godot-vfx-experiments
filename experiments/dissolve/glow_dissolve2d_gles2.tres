@@ -1,0 +1,22 @@
+[gd_resource type="Environment" load_steps=2 format=2]
+
+[sub_resource type="ProceduralSky" id=1]
+radiance_size = 1
+sky_curve = 0.32445
+ground_bottom_color = Color( 0.286275, 0.45098, 0.584314, 1 )
+ground_horizon_color = Color( 0.839216, 0.917647, 0.980392, 1 )
+sun_color = Color( 1, 0.980392, 0.862745, 1 )
+texture_size = 1
+
+[resource]
+background_mode = 4
+background_sky = SubResource( 1 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.0
+glow_enabled = true
+glow_levels/2 = true
+glow_levels/4 = true
+glow_intensity = 3.53
+glow_strength = 1.18
+glow_blend_mode = 0
+glow_bicubic_upscale = true

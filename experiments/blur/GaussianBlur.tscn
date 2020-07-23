@@ -1,0 +1,257 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://experiments/blur/shaders/gaussian_blur.shader" type="Shader" id=1]
+[ext_resource path="res://experiments/blur/scene_elements/Bg00.tscn" type="PackedScene" id=2]
+[ext_resource path="res://experiments/blur/scene_elements/Bg02.tscn" type="PackedScene" id=3]
+[ext_resource path="res://experiments/blur/scene_elements/Bg01.tscn" type="PackedScene" id=4]
+[ext_resource path="res://experiments/blur/CrossFader.gd" type="Script" id=5]
+[ext_resource path="res://main_menu/GoBackButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://experiments/blur/BlurredLayerHover.gd" type="Script" id=8]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/blur_scale = Vector2( 1, 0 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/blur_scale = Vector2( 0, 1 )
+
+[sub_resource type="ViewportTexture" id=3]
+viewport_path = NodePath("Blur2/Viewport")
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 381.584, 96 )
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 1 )
+shader_param/blur_scale = Vector2( 0, 1 )
+
+[sub_resource type="ViewportTexture" id=6]
+viewport_path = NodePath("Blur3/Viewport")
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 1 )
+shader_param/blur_scale = Vector2( 0, 1 )
+
+[sub_resource type="ViewportTexture" id=8]
+viewport_path = NodePath("Blur4/Viewport")
+
+[node name="GaussianBlur" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur2" type="ViewportContainer" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="Blur2"]
+size = Vector2( 700, 400 )
+handle_input_locally = false
+render_target_v_flip = true
+render_target_update_mode = 3
+gui_disable_input = true
+
+[node name="Blur" type="ViewportContainer" parent="Blur2/Viewport"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="Blur2/Viewport/Blur"]
+size = Vector2( 700, 400 )
+handle_input_locally = false
+render_target_update_mode = 3
+gui_disable_input = true
+
+[node name="BG" parent="Blur2/Viewport/Blur/Viewport" instance=ExtResource( 2 )]
+
+[node name="Blur3" type="ViewportContainer" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="Blur3"]
+size = Vector2( 700, 400 )
+transparent_bg = true
+handle_input_locally = false
+render_target_v_flip = true
+render_target_update_mode = 3
+gui_disable_input = true
+
+[node name="Blur" type="ViewportContainer" parent="Blur3/Viewport"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="Blur3/Viewport/Blur"]
+size = Vector2( 700, 400 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+gui_disable_input = true
+
+[node name="Bg01" parent="Blur3/Viewport/Blur/Viewport" instance=ExtResource( 4 )]
+
+[node name="Blur4" type="ViewportContainer" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="Blur4"]
+size = Vector2( 700, 400 )
+transparent_bg = true
+handle_input_locally = false
+render_target_v_flip = true
+render_target_update_mode = 3
+gui_disable_input = true
+
+[node name="Blur" type="ViewportContainer" parent="Blur4/Viewport"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="Blur4/Viewport/Blur"]
+size = Vector2( 700, 400 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+gui_disable_input = true
+
+[node name="Bg01" parent="Blur4/Viewport/Blur/Viewport" instance=ExtResource( 3 )]
+
+[node name="BlurredLayer00" type="Area2D" parent="." groups=[
+"blur_detection",
+]]
+script = ExtResource( 8 )
+
+[node name="CrossFader" type="Node" parent="BlurredLayer00"]
+script = ExtResource( 5 )
+from_path = NodePath("../BlurredBG")
+target_path = NodePath("../BG")
+
+[node name="Tween" type="Tween" parent="BlurredLayer00/CrossFader"]
+
+[node name="BG" parent="BlurredLayer00" instance=ExtResource( 2 )]
+
+[node name="BlurredBG" type="Sprite" parent="BlurredLayer00"]
+visible = false
+material = SubResource( 2 )
+texture = SubResource( 3 )
+offset = Vector2( 350, 200 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlurredLayer00"]
+position = Vector2( 350, 200 )
+shape = SubResource( 4 )
+
+[node name="BlurredLayer01" type="Area2D" parent="." groups=[
+"blur_detection",
+]]
+priority = 1.0
+script = ExtResource( 8 )
+
+[node name="CrossFader" type="Node" parent="BlurredLayer01"]
+script = ExtResource( 5 )
+from_path = NodePath("../BlurredBg01")
+target_path = NodePath("../Bg01")
+
+[node name="Tween" type="Tween" parent="BlurredLayer01/CrossFader"]
+
+[node name="Bg01" parent="BlurredLayer01" instance=ExtResource( 4 )]
+
+[node name="BlurredBg01" type="Sprite" parent="BlurredLayer01"]
+visible = false
+material = SubResource( 5 )
+texture = SubResource( 6 )
+offset = Vector2( 350, 200 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BlurredLayer01"]
+polygon = PoolVector2Array( -32.0552, 272.628, 48.8534, 264.013, 138.377, 272.628, 148.865, 249.405, 208.049, 245.659, 431.296, 275.25, 491.603, 254.274, 590.117, 273.003, 626.826, 263.264, 703.614, 276, 730.583, 271.13, 730, 332, 501, 330, 445, 316, 376, 323, 305, 349, 136, 368, -31, 329 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="BlurredLayer01"]
+polygon = PoolVector2Array( -33.5534, 163.252, 244.008, 129.54, 260.115, 116.43, 492.727, 164.75, 533.181, 166.623, 599.107, 154.262, 605.1, 122.798, 634.692, 114.557, 638.812, 142.65, 729.834, 165.125, 731, 86, 611, 51, 453, 97, 280, 106, 200, 69, -28, 93 )
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="BlurredLayer01"]
+polygon = PoolVector2Array( -3.58731, 138.904, 8.02458, 196.964, 27.128, 210.074, 42.1111, 211.198, 48.8534, 226.181, 52.2246, 231.425, 70.5789, 237.044, 80.3179, 252.027, 75.823, 269.257, 124.143, 276.749, 125.642, 265.511, 93.0535, 206.703, 74.6992, 200.335, 74.3247, 183.854, 47.3551, 169.62, 52.9738, 140.777 )
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="BlurredLayer01"]
+polygon = PoolVector2Array( 187.821, 116.43, 202.055, 138.904, 203.179, 155.76, 212.918, 226.555, 218.162, 237.793, 215.166, 251.277, 263.861, 258.394, 255.994, 243.786, 254.122, 225.806, 248.878, 221.311, 242.51, 180.482, 244.008, 161.004, 232.771, 145.272, 229.774, 116.055 )
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="BlurredLayer01"]
+polygon = PoolVector2Array( 351.512, 123.172, 336.529, 164.376, 345.144, 186.101, 344.02, 212.696, 333.532, 220.562, 325.291, 232.549, 284.088, 255.398, 365.371, 268.133, 375.11, 234.422, 389.718, 206.703, 374.735, 191.72, 375.484, 177.486, 370.99, 171.118, 382.227, 148.269, 399.083, 143.025 )
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="BlurredLayer01"]
+polygon = PoolVector2Array( 417.437, 140.777, 443.283, 223.933, 435.417, 247.532, 435.791, 276, 473.624, 263.639, 461.263, 244.91, 471.002, 201.459, 459.015, 147.145 )
+
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="BlurredLayer01"]
+polygon = PoolVector2Array( 595.361, 151.64, 578.13, 195.84, 582.251, 222.435, 571.388, 247.906, 577.007, 263.639, 572.512, 275.25, 548.164, 268.883, 541.422, 249.405, 557.529, 222.061, 544.419, 208.95, 560.151, 176.362, 571.763, 152.389 )
+
+[node name="BlurredLayer02" type="Area2D" parent="." groups=[
+"blur_detection",
+]]
+priority = 2.0
+script = ExtResource( 8 )
+
+[node name="CrossFader" type="Node" parent="BlurredLayer02"]
+script = ExtResource( 5 )
+from_path = NodePath("../../BlurredLayer02/Bg02Blurred")
+target_path = NodePath("../../BlurredLayer02/Bg02")
+
+[node name="Tween" type="Tween" parent="BlurredLayer02/CrossFader"]
+
+[node name="Bg02" parent="BlurredLayer02" instance=ExtResource( 3 )]
+
+[node name="Bg02Blurred" type="Sprite" parent="BlurredLayer02"]
+visible = false
+material = SubResource( 7 )
+texture = SubResource( 8 )
+offset = Vector2( 350, 200 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="BlurredLayer02"]
+polygon = PoolVector2Array( -35.5, 117.5, -31.5, -12, 728, -10, 727.5, 115.5, 608, 61.5, 454.5, 103, 279, 110, 205.5, 76.5, 69, 85 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BlurredLayer02"]
+polygon = PoolVector2Array( -29, 408.5, -28, 309, 14.5, 315, 142, 356, 233, 337.5, 306, 334, 377, 313.5, 451, 306.5, 501, 318, 661.5, 325.5, 714, 310.5, 725.5, 312, 726, 403 )
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="BlurredLayer02"]
+polygon = PoolVector2Array( 50.9147, 333.856, 52.413, 323.742, 45.6707, 302.391, 71.1419, 264.184, 63.2757, 202.754, 91.7436, 140.949, 49.4164, 66.7825, 144.933, 69.0299, 125.83, 93.3774, 151.676, 141.323, 151.301, 167.918, 109.723, 219.61, 103.355, 265.308, 113.844, 280.291, 110.472, 321.495, 133.322, 337.976, 144.184, 361.2 )
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="BlurredLayer02"]
+polygon = PoolVector2Array( 498.909, 334.23, 516.888, 292.278, 563.336, 240.212, 552.099, 180.654, 564.46, 156.306, 560.714, 133.083, 565.583, 119.598, 562.961, 94.5011, 584.687, 71.2773, 583.188, 57.7926, 651.736, 60.7892, 649.863, 81.7655, 620.271, 88.5079, 614.278, 103.491, 603.79, 109.484, 617.649, 162.674, 588.807, 187.396, 610.532, 254.82, 609.034, 268.305, 586.56, 295.274, 595.549, 333.856 )
+
+[node name="GoBackButton" parent="." instance=ExtResource( 7 )]
+
+[node name="Sprite" type="Sprite" parent="."]

@@ -1,0 +1,51 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "LayerHoverDetector",
+"language": "GDScript",
+"path": "res://experiments/blur/LayerHoverDetector.gd"
+}, {
+"base": "Node",
+"class": "SceneChanger",
+"language": "GDScript",
+"path": "res://main_menu/SceneChanger.gd"
+} ]
+_global_script_class_icons={
+"LayerHoverDetector": "",
+"SceneChanger": ""
+}
+
+[application]
+
+config/name="[GDQUEST] Godot Shader Secrets - Pratice and Experiments"
+run/main_scene="res://main_menu/ExperimentsMenu.tscn"
+config/icon="res://icon.png"
+config/version="0.3.3"
+config/build_folder="v0.3"
+
+[display]
+
+window/size/width=700
+window/size/height=400
+
+[editor]
+
+convert_text_resources_to_binary_on_export=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+quality/shadow_atlas/size=8192
+quality/shadows/filter_mode=2
+environment/default_clear_color=Color( 0.227451, 0.145098, 0.380392, 1 )
+quality/filters/msaa=4
+environment/default_environment="res://default_env.tres"
