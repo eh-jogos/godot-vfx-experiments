@@ -1,5 +1,6 @@
 # godot-vfx-experiments
-Project to Gather experiments in shaders, particles and other vfx in Godot.
+Project to Gather experiments in shaders, particles and other vfx in Godot. So far, mostly things I'm learning with GDQuest Courses:
+- [GDQuest Godot Shaders Coure](https://gdquest.mavenseed.com/courses/shader-secrets-learn-to-code-2d-and-3d-shaders-in-godot)
 
 # Licenses
 
