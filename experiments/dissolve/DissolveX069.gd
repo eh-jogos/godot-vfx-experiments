@@ -9,6 +9,11 @@ extends Sprite
 export var effect_duration: = 1.5
 
 # private variables - order: export > normal var > onready 
+export var _texture_mask_shader_nodepath : = NodePath()
+
+onready var _mask_dissolve_shader: ShaderMaterial = \
+		get_node(_texture_mask_shader_nodepath).material as ShaderMaterial
+
 onready var _dissolve_shader: ShaderMaterial = material as ShaderMaterial
 onready var _balloon: Polygon2D = $Balloon
 onready var _tween: Tween = $Tween
@@ -34,6 +39,7 @@ func _ready():
 ### Private Methods -----------------------
 func _set_dissolve_amount(percent: float) -> void:
 	_dissolve_shader.set_shader_param("dissolve_amount", percent)
+	_mask_dissolve_shader.set_shader_param("dissolve_amount", percent)
 
 
 func _on_Area2D_mouse_entered():
