@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "EHJ_TransitionData",
+"language": "GDScript",
+"path": "res://eh_jogos/transitions/custom_resources/EHJ_TransitionData.gd"
+}, {
 "base": "Area2D",
 "class": "LayerHoverDetector",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://main_menu/SceneChanger.gd"
 } ]
 _global_script_class_icons={
+"EHJ_TransitionData": "",
 "LayerHoverDetector": "",
 "SceneChanger": ""
 }
@@ -31,6 +37,10 @@ run/main_scene="res://main_menu/ExperimentsMenu.tscn"
 config/icon="res://icon.png"
 config/version="0.4.0"
 config/build_folder="v0.4"
+
+[autoload]
+
+EHJ_Transitions="*res://eh_jogos/transitions/EHJ_Transitions.tscn"
 
 [display]
 
