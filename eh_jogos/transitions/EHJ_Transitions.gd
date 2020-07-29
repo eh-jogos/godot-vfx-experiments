@@ -99,8 +99,10 @@ func play_transition_full() -> void:
 func play_fade_in(color: Color = Color.black, duration: float = 0.5) -> void:
 	_play_in_animation("fade_in", color, duration)
 
+
 func play_fade_out(color: Color = Color.black, duration: float = 0.5) -> void:
 	_play_out_animation("fade_out", color, duration)
+
 
 func play_fade_transition(color: Color = Color.black, duration: float = 0.5) -> void:
 	if _animator.is_playing():
