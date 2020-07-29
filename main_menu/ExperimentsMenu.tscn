@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://main_menu/themes/dissolve3d_button.tres" type="Theme" id=1]
 [ext_resource path="res://main_menu/themes/eh_jogos_theme.tres" type="Theme" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://main_menu/themes/shockwave_button.tres" type="Theme" id=9]
 [ext_resource path="res://fonts/eh_jogos_source/MavenPro-Medium.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://main_menu/VersionLabel.gd" type="Script" id=11]
+[ext_resource path="res://eh_jogos/transitions/examples/sweep_right.tres" type="Resource" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 10 )
@@ -79,6 +80,7 @@ text = "Suspects"
 [node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line1/Suspects"]
 script = ExtResource( 6 )
 _next_scene_path = "res://experiments/outlines/SimpleOutline2D.tscn"
+transition_data = ExtResource( 12 )
 
 [node name="Shockwave" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line1"]
 margin_left = 255.0
@@ -92,6 +94,7 @@ text = "Shockwave"
 [node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line1/Shockwave"]
 script = ExtResource( 6 )
 _next_scene_path = "res://experiments/shockwave/Shockwave.tscn"
+transition_data = ExtResource( 12 )
 
 [node name="Blur" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line1"]
 margin_left = 445.0
@@ -105,6 +108,7 @@ text = "Blur"
 [node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line1/Blur"]
 script = ExtResource( 6 )
 _next_scene_path = "res://experiments/blur/GaussianBlur.tscn"
+transition_data = ExtResource( 12 )
 
 [node name="Line2" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 margin_top = 195.0
@@ -125,6 +129,7 @@ text = "Dissolve 3D"
 [node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2/Dissolve3d"]
 script = ExtResource( 6 )
 _next_scene_path = "res://experiments/dissolve/Dissolve3D.tscn"
+transition_data = ExtResource( 12 )
 
 [node name="Dissolve2d" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2"]
 margin_left = 255.0
@@ -138,6 +143,7 @@ text = "Dissolve 2D"
 [node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2/Dissolve2d"]
 script = ExtResource( 6 )
 _next_scene_path = "res://experiments/dissolve/Dissolve2D.tscn"
+transition_data = ExtResource( 12 )
 
 [node name="XRayMask" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2"]
 margin_left = 445.0
@@ -151,6 +157,7 @@ text = "X-Ray Mask"
 [node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2/XRayMask"]
 script = ExtResource( 6 )
 _next_scene_path = "res://experiments/masking/XRayScene.tscn"
+transition_data = ExtResource( 12 )
 
 [node name="Line3" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 margin_top = 330.0
@@ -171,6 +178,7 @@ text = "Outline 3D"
 [node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3/Outline3d"]
 script = ExtResource( 6 )
 _next_scene_path = "res://experiments/outlines/SimpleOutline3D.tscn"
+transition_data = ExtResource( 12 )
 
 [node name="Dissolve2d" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3"]
 visible = false
@@ -185,6 +193,7 @@ text = "Dissolve 2D"
 [node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3/Dissolve2d"]
 script = ExtResource( 6 )
 _next_scene_path = "res://experiments/dissolve/Dissolve2D.tscn"
+transition_data = ExtResource( 12 )
 
 [node name="Blur" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3"]
 visible = false
@@ -199,6 +208,7 @@ text = "Blur"
 [node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3/Blur"]
 script = ExtResource( 6 )
 _next_scene_path = "res://experiments/blur/GaussianBlur.tscn"
+transition_data = ExtResource( 12 )
 
 [node name="VersionLabel" type="Label" parent="."]
 margin_right = 40.0

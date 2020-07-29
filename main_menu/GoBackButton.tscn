@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://main_menu/themes/eh_jogos_theme.tres" type="Theme" id=1]
 [ext_resource path="res://main_menu/SceneChanger.gd" type="Script" id=2]
+[ext_resource path="res://eh_jogos/transitions/examples/sweep_left.tres" type="Resource" id=3]
 
 [node name="GoBackButton" type="Button"]
 anchor_left = 0.5
@@ -20,3 +21,4 @@ __meta__ = {
 [node name="SceneChanger" type="Node" parent="."]
 script = ExtResource( 2 )
 _next_scene_path = "res://main_menu/ExperimentsMenu.tscn"
+transition_data = ExtResource( 3 )
