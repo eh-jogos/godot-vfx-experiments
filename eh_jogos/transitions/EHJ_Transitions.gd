@@ -160,12 +160,7 @@ func _set_transition_data(data : EHJ_TransitionData) -> void:
 	
 	transition_data = data
 	_casted_transition_data = transition_data as EHJ_TransitionData
-	
-	if not is_inside_tree():
-		yield(self, "ready")
-	
-	_color_panel.color = _casted_transition_data.color
-	_set_playback_speed(_casted_transition_data.duration)
+
 
 
 func _get_transition_data() -> EHJ_TransitionData:
