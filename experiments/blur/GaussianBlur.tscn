@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://experiments/blur/shaders/gaussian_blur.shader" type="Shader" id=1]
 [ext_resource path="res://experiments/blur/scene_elements/Bg00.tscn" type="PackedScene" id=2]
@@ -10,30 +10,34 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
-shader_param/blur_scale = Vector2( 1, 0 )
+shader_param/blur_scale = Vector2( 0, 1 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 1 )
+shader_param/blur_scale = Vector2( 1, 0 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 1 )
 shader_param/blur_scale = Vector2( 0, 1 )
 
-[sub_resource type="ViewportTexture" id=3]
+[sub_resource type="ViewportTexture" id=4]
 viewport_path = NodePath("Blur2/Viewport")
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 381.584, 96 )
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 1 )
 shader_param/blur_scale = Vector2( 0, 1 )
 
-[sub_resource type="ViewportTexture" id=6]
+[sub_resource type="ViewportTexture" id=7]
 viewport_path = NodePath("Blur3/Viewport")
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=8]
 shader = ExtResource( 1 )
 shader_param/blur_scale = Vector2( 0, 1 )
 
-[sub_resource type="ViewportTexture" id=8]
+[sub_resource type="ViewportTexture" id=9]
 viewport_path = NodePath("Blur4/Viewport")
 
 [node name="GaussianBlur" type="Control"]
@@ -46,6 +50,7 @@ __meta__ = {
 
 [node name="Blur2" type="ViewportContainer" parent="."]
 self_modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -62,7 +67,7 @@ render_target_update_mode = 3
 gui_disable_input = true
 
 [node name="Blur" type="ViewportContainer" parent="Blur2/Viewport"]
-material = SubResource( 1 )
+material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -81,6 +86,7 @@ gui_disable_input = true
 
 [node name="Blur3" type="ViewportContainer" parent="."]
 self_modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -98,7 +104,7 @@ render_target_update_mode = 3
 gui_disable_input = true
 
 [node name="Blur" type="ViewportContainer" parent="Blur3/Viewport"]
-material = SubResource( 1 )
+material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -118,6 +124,7 @@ gui_disable_input = true
 
 [node name="Blur4" type="ViewportContainer" parent="."]
 self_modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -135,7 +142,7 @@ render_target_update_mode = 3
 gui_disable_input = true
 
 [node name="Blur" type="ViewportContainer" parent="Blur4/Viewport"]
-material = SubResource( 1 )
+material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -169,13 +176,13 @@ target_path = NodePath("../BG")
 
 [node name="BlurredBG" type="Sprite" parent="BlurredLayer00"]
 visible = false
-material = SubResource( 2 )
-texture = SubResource( 3 )
+material = SubResource( 3 )
+texture = SubResource( 4 )
 offset = Vector2( 350, 200 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlurredLayer00"]
 position = Vector2( 350, 200 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="BlurredLayer01" type="Area2D" parent="." groups=[
 "blur_detection",
@@ -194,8 +201,8 @@ target_path = NodePath("../Bg01")
 
 [node name="BlurredBg01" type="Sprite" parent="BlurredLayer01"]
 visible = false
-material = SubResource( 5 )
-texture = SubResource( 6 )
+material = SubResource( 6 )
+texture = SubResource( 7 )
 offset = Vector2( 350, 200 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BlurredLayer01"]
@@ -236,8 +243,8 @@ target_path = NodePath("../../BlurredLayer02/Bg02")
 
 [node name="Bg02Blurred" type="Sprite" parent="BlurredLayer02"]
 visible = false
-material = SubResource( 7 )
-texture = SubResource( 8 )
+material = SubResource( 8 )
+texture = SubResource( 9 )
 offset = Vector2( 350, 200 )
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="BlurredLayer02"]

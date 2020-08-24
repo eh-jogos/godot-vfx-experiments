@@ -50,10 +50,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 3, 3.6, 3.7, 4.3, 4.4, 5 ),
-"transitions": PoolRealArray( 1, 1, 0, 1, 0, 1, 0 ),
+"times": PoolRealArray( 0, 3, 3.6, 3.7, 4.3, 4.4, 5, 5.1 ),
+"transitions": PoolRealArray( 1, 1, 0, 1, 0, 1, 0, 1 ),
 "update": 0,
-"values": [ -0.06, -0.06, 1.206, -0.06, 1.206, -0.06, 1.206 ]
+"values": [ -0.06, -0.06, 1.206, -0.06, 1.206, -0.06, 1.206, -0.06 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("ViewportContainer:rect_rotation")
@@ -125,20 +125,20 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="EyeShape" parent="ViewportContainer/Viewport/BG/BackRowBossSkin/Eye" index="0"]
 animation = "idle"
-frame = 0
+frame = 7
 
 [node name="Iris" parent="ViewportContainer/Viewport/BG/BackRowBossSkin/Eye" index="1"]
-position = Vector2( 3.17539, 8.2041 )
+position = Vector2( 2.91187, 4.52942 )
 animation = "idle"
-frame = 0
+frame = 7
 
 [node name="MouthShape" parent="ViewportContainer/Viewport/BG/BackRowBossSkin/Mouth" index="0"]
 animation = "idle"
-frame = 0
+frame = 7
 
 [node name="Teeth" parent="ViewportContainer/Viewport/BG/BackRowBossSkin/Mouth" index="1"]
 animation = "idle"
-frame = 0
+frame = 7
 
 [node name="Bg01" parent="ViewportContainer/Viewport" instance=ExtResource( 2 )]
 

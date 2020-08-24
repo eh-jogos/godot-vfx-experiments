@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://experiments/outlines/CursorIcon.gd" type="Script" id=1]
 [ext_resource path="res://experiments/outlines/CharacterProfiler.gd" type="Script" id=2]
@@ -15,6 +15,9 @@
 [ext_resource path="res://experiments/outlines/pngs/fantasmagoria/background_@0.2x.png" type="Texture" id=13]
 [ext_resource path="res://experiments/outlines/pngs/fantasmagoria/legenda_roberto_@0.2x_m020.png" type="Texture" id=14]
 [ext_resource path="res://main_menu/GoBackButton.tscn" type="PackedScene" id=15]
+[ext_resource path="res://experiments/outlines/shaders/CircleMask.shader" type="Shader" id=17]
+[ext_resource path="res://experiments/outlines/RemoteVisibility.gd" type="Script" id=18]
+[ext_resource path="res://experiments/outlines/shaders/blur_suspects.shader" type="Shader" id=19]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 10 )
@@ -31,17 +34,35 @@ shader = ExtResource( 10 )
 shader_param/line_color = Color( 0.870588, 0, 0, 0 )
 shader_param/line_thickness = 1.0
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 10 )
 shader_param/line_color = Color( 0.870588, 0, 0, 0 )
 shader_param/line_thickness = 1.0
 
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 19 )
+shader_param/blur_scale = Vector2( 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 19 )
+shader_param/blur_scale = Vector2( 1, 0 )
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 17 )
+shader_param/position = Vector2( 0.5, 0.5 )
+shader_param/radius = 0.3
+shader_param/edge_hardness = 0.193
+shader_param/circle_resolution = Vector2( 1.1, 0.48 )
+
+[sub_resource type="ViewportTexture" id=8]
+viewport_path = NodePath("PostProcessing/BlurY/Viewport")
+
 [node name="SimpleOutline2D" type="Node2D"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -50,11 +71,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GoBackButton" parent="CanvasLayer" instance=ExtResource( 15 )]
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-layer = -1
-
 [node name="BG" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.8, 1 )
 motion_offset = Vector2( -70, 0 )
@@ -62,6 +78,9 @@ motion_offset = Vector2( -70, 0 )
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/BG"]
 position = Vector2( 350, 200 )
 texture = ExtResource( 13 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="ParallaxBackground/BG/Sprite"]
+remote_path = NodePath("../../../../PostProcessing/BlurY/Viewport/BlurX/Viewport/BG")
 
 [node name="Character" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.9, 1 )
@@ -80,6 +99,9 @@ info_panel_path = NodePath("../../TopMask/Top/InfoRoberto")
 position = Vector2( 0.75, 0.25 )
 polygon = PoolVector2Array( -41.2417, 10.9822, -39.2417, -10.0178, -42.4917, -15.0178, -47.2417, -28.0178, -52.4917, -34.5178, -49.7417, -57.2678, -52.9917, -66.2678, -40.2417, -98.5178, -21.7417, -116.268, 3.50833, -127.518, 32.0083, -122.268, 54.2583, -103.268, 60.5083, -53.7678, 55.0083, -44.2678, 55.7583, -29.0178, 41.5083, 8.23221, 41.5083, 14.9822, 29.2583, 22.9822, 31.2583, 25.2322, 35.0083, 35.2322, 87.0083, 66.4822, 86.0083, 127.982, -87.9917, 127.232, -88.7417, 56.9822, -56.7417, 37.2322, -56.4917, 30.4822, -52.9917, 28.9822, -43.4917, 10.9822 )
 
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="ParallaxBackground/Character/Roberto"]
+remote_path = NodePath("../../../../PostProcessing/BlurY/Viewport/BlurX/Viewport/Roberto")
+
 [node name="Ana" type="Sprite" parent="ParallaxBackground/Character"]
 material = SubResource( 2 )
 position = Vector2( 259.37, 220.768 )
@@ -91,6 +113,9 @@ info_panel_path = NodePath("../../TopMask/Top/InfoAna")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ParallaxBackground/Character/Ana/Area2D"]
 polygon = PoolVector2Array( -77.2813, 113.574, -61.3757, 84.2898, -57.8081, 87.5601, -43.5376, 71.0598, -23.7671, 54.7083, -23.9157, 49.6541, -30.4563, 46.6811, -41.4565, 32.1133, -54.9837, 33.0052, -59.2946, 27.2078, -57.5108, 20.5185, -74.457, 16.6535, -87.5383, 10.7075, -86.0518, 3.42361, -79.0652, 1.78845, -77.876, -2.96837, -67.9164, -5.64409, -74.903, -9.65765, -80.403, -15.901, -75.6462, -19.6173, -79.3625, -26.7525, -71.3353, -34.7798, -77.876, -41.0231, -75.0516, -46.5232, -78.0246, -52.4692, -69.9975, -57.8207, -71.484, -62.2802, -68.2137, -64.9559, -71.038, -70.9019, -69.1056, -76.1047, -57.3622, -75.9561, -52.754, -78.3345, -26.7401, -109.848, -18.7129, -112.078, -2.06403, -104.646, 10.5713, -116.389, 32.423, -112.376, 48.7746, -103.011, 63.6397, -85.767, 69.5858, -64.2127, 72.7075, -48.307, 79.9914, -35.3744, 89.505, -20.658, 94.1132, 1.63971, 93.6672, 39.397, 88.9104, 57.6811, 80.4373, 63.9244, 70.0317, 66.3028, 75.8292, 80.2761, 77.613, 102.871, 75.3832, 112.682 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="ParallaxBackground/Character/Ana"]
+remote_path = NodePath("../../../../PostProcessing/BlurY/Viewport/BlurX/Viewport/Ana")
 
 [node name="Juliana" type="Sprite" parent="ParallaxBackground/Character"]
 material = SubResource( 3 )
@@ -104,8 +129,11 @@ info_panel_path = NodePath("../../TopMask/Top/InfoJuliana")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ParallaxBackground/Character/Juliana/Area2D"]
 polygon = PoolVector2Array( -86.1902, 65.2704, -63.0269, 49.6797, -59.0178, 35.648, -48.7725, 22.2845, -41.6453, 19.1664, -44.7634, -1.32426, -53.6724, -12.015, -53.0043, -26.2694, -59.4633, -46.7601, -51.6679, -51.8827, -51.8907, -70.3689, -56.7906, -69.9234, -51.8907, -80.3915, -56.7906, -82.396, -43.8726, -87.0732, -40.5317, -96.8731, -29.1728, -113.355, -27.8364, -106.228, -14.9184, -108.9, -20.041, -101.55, 16.4858, -106.673, 43.2128, -104, 33.1901, -95.5368, 51.2308, -88.6323, 54.1263, -83.5096, 50.3399, -81.9506, 60.808, -73.9325, 49.2263, -73.0416, 56.3535, -64.1326, 48.5581, -62.7962, 51.2308, -55.8918, 43.8809, -51.8827, 47.2218, -46.5374, 44.9945, -26.7148, 44.7718, -11.7923, 36.7537, -2.21515, 31.1856, 23.1755, 37.1992, 21.3937, 50.1172, 32.9753, 61.0307, 50.3479, 87.0895, 66.1613, 87.0895, 113.602, -87.5266, 113.824 )
 
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="ParallaxBackground/Character/Juliana"]
+remote_path = NodePath("../../../../PostProcessing/BlurY/Viewport/BlurX/Viewport/Juliana")
+
 [node name="X069" type="Sprite" parent="ParallaxBackground/Character"]
-material = SubResource( 5 )
+material = SubResource( 4 )
 position = Vector2( 617.047, 197.768 )
 texture = ExtResource( 3 )
 region_rect = Rect2( -50, 0, 260, 318 )
@@ -117,6 +145,9 @@ info_panel_path = NodePath("../../TopMask/Top/InfoX069")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ParallaxBackground/Character/X069/Area2D"]
 polygon = PoolVector2Array( -87.5182, 46.8172, -67.9673, 20.7494, -65.6548, 12.1302, -37.4849, -2.16499, -35.803, -8.68195, -45.2631, -32.6475, -57.2458, -118.629, -48.6267, -132.083, -36.2234, -141.964, 27.2642, -142.174, 37.5652, -131.663, 55.8547, -18.142, 89.4906, -0.0627441, 88.4395, 140.367, -84.9954, 139.946 )
 
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="ParallaxBackground/Character/X069"]
+remote_path = NodePath("../../../../PostProcessing/BlurY/Viewport/BlurX/Viewport/X069")
+
 [node name="TopMask" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="Top" type="Sprite" parent="ParallaxBackground/TopMask"]
@@ -126,26 +157,162 @@ region_enabled = true
 region_rect = Rect2( -200, 0, 1136, 296 )
 
 [node name="InfoRoberto" type="Sprite" parent="ParallaxBackground/TopMask/Top"]
+visible = false
 position = Vector2( -267.508, 138.768 )
 texture = ExtResource( 14 )
 
+[node name="RemoteVisibility" type="Node" parent="ParallaxBackground/TopMask/Top/InfoRoberto"]
+script = ExtResource( 18 )
+_remote_path = NodePath("../../../../../PostProcessing/BlurY/Viewport/BlurX/Viewport/Top/InfoRoberto")
+
 [node name="InfoAna" type="Sprite" parent="ParallaxBackground/TopMask/Top"]
+visible = false
 position = Vector2( -90.6297, 138.768 )
 texture = ExtResource( 4 )
 
+[node name="RemoteVisibility" type="Node" parent="ParallaxBackground/TopMask/Top/InfoAna"]
+script = ExtResource( 18 )
+_remote_path = NodePath("../../../../../PostProcessing/BlurY/Viewport/BlurX/Viewport/Top/InfoAna")
+
 [node name="InfoJuliana" type="Sprite" parent="ParallaxBackground/TopMask/Top"]
+visible = false
 position = Vector2( 89.6632, 138.768 )
 texture = ExtResource( 11 )
 
+[node name="RemoteVisibility" type="Node" parent="ParallaxBackground/TopMask/Top/InfoJuliana"]
+script = ExtResource( 18 )
+_remote_path = NodePath("../../../../../PostProcessing/BlurY/Viewport/BlurX/Viewport/Top/InfoJuliana")
+
 [node name="InfoX069" type="Sprite" parent="ParallaxBackground/TopMask/Top"]
+visible = false
 position = Vector2( 267.047, 138.768 )
 texture = ExtResource( 7 )
+
+[node name="RemoteVisibility" type="Node" parent="ParallaxBackground/TopMask/Top/InfoX069"]
+script = ExtResource( 18 )
+_remote_path = NodePath("../../../../../PostProcessing/BlurY/Viewport/BlurX/Viewport/Top/InfoX069")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="ParallaxBackground/TopMask/Top"]
+remote_path = NodePath("../../../../PostProcessing/BlurY/Viewport/BlurX/Viewport/Top")
+
+[node name="PostProcessing" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="BlurY" type="ViewportContainer" parent="PostProcessing"]
+self_modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="PostProcessing/BlurY"]
+size = Vector2( 700, 400 )
+transparent_bg = true
+handle_input_locally = false
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="BlurX" type="ViewportContainer" parent="PostProcessing/BlurY/Viewport"]
+material = SubResource( 6 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="PostProcessing/BlurY/Viewport/BlurX"]
+size = Vector2( 700, 400 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="BG" type="Sprite" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport"]
+position = Vector2( 350, 200 )
+texture = ExtResource( 13 )
+
+[node name="Roberto" type="Sprite" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport"]
+material = SubResource( 1 )
+position = Vector2( 82.4917, 210.768 )
+texture = ExtResource( 8 )
+
+[node name="Ana" type="Sprite" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport"]
+material = SubResource( 2 )
+position = Vector2( 259.37, 220.768 )
+texture = ExtResource( 6 )
+
+[node name="Juliana" type="Sprite" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport"]
+material = SubResource( 3 )
+position = Vector2( 439.663, 223.768 )
+texture = ExtResource( 12 )
+
+[node name="X069" type="Sprite" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport"]
+material = SubResource( 4 )
+position = Vector2( 617.047, 197.768 )
+texture = ExtResource( 3 )
+region_rect = Rect2( -50, 0, 260, 318 )
+
+[node name="Top" type="Sprite" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport"]
+position = Vector2( 350, 200 )
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( -200, 0, 1136, 296 )
+
+[node name="InfoRoberto" type="Sprite" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport/Top"]
+visible = false
+position = Vector2( -267.508, 138.768 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 14 )
+
+[node name="InfoAna" type="Sprite" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport/Top"]
+visible = false
+position = Vector2( -90.6297, 138.768 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 4 )
+
+[node name="InfoJuliana" type="Sprite" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport/Top"]
+visible = false
+position = Vector2( 89.6632, 138.768 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 11 )
+
+[node name="InfoX069" type="Sprite" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport/Top"]
+visible = false
+position = Vector2( 267.047, 138.768 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 7 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="PostProcessing/BlurY/Viewport/BlurX/Viewport"]
+scale = Vector2( 0.25, 0.25 )
+color = Color( 0.337255, 0.266667, 0.34902, 1 )
+
+[node name="BlurEffectMask" type="TextureRect" parent="PostProcessing"]
+material = SubResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource( 8 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="GoBackButton" parent="HUD" instance=ExtResource( 15 )]
 
 [node name="CursorIcon" type="Sprite" parent="."]
 visible = false
 position = Vector2( 450, 200 )
 texture = ExtResource( 9 )
 script = ExtResource( 1 )
+_blur_effect_path = NodePath("../PostProcessing/BlurEffectMask")
 
 [node name="Camera2D" type="Camera2D" parent="CursorIcon"]
 current = true

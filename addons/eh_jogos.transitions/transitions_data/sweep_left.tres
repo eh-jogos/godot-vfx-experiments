@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://addons/eh_jogos.transitions/custom_resources/eh_TransitionData.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 7
+load_path = "res://.import/linear_horizontal_grayscale.png-c3da2a4feeb27026c9df7ce7bd810ef2.s3tc.stex"
+
+[resource]
+script = ExtResource( 1 )
+color = Color( 0, 0, 0, 1 )
+duration = 0.5
+mask = SubResource( 1 )
+transition_in = "reversed_in"
+transition_out = "reversed_out"

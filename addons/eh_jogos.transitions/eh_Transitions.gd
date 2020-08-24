@@ -1,9 +1,9 @@
 extends CanvasLayer
-# This is a Class to Handle Transitions of any kind. It uses a custom resource called EHJ_TransitionData
+# This is a Class to Handle Transitions of any kind. It uses a custom resource called eh_TransitionData
 # and a tansition shader, to make it very easy to add new kinds of Transition. You can use it 
 # as an autoload and call it from anywhere or Add this node to each scene that has a transition.
 #
-# To use it, create a EHJ_TransitionData with your settings and save it to disk, then drag it to the
+# To use it, create a eh_TransitionData with your settings and save it to disk, then drag it to the
 # transition_data variable in the editor, or set it by code from somewhere else. 
 #
 # To preview it, run the scene with F6 and press up to see the transition, and down to see
@@ -24,8 +24,8 @@ extends CanvasLayer
 # Lastly, since Godot 3.2.2 doesn't have support for exporting custom resources, I'm using 
 # setget and _casted_transition_data to do some workarounds, and ensure that putting any other kind
 # of Resource in the transition_data variable won't be accepted and won't break things by mistake, so
-# you can ignore it. Just rememeber to create EHJ_TransitionData resources by clicking with the right button
-# on the FileSystem panel and choosing "New Resource" and searching for "EHJ_TransitionData" there, to make
+# you can ignore it. Just rememeber to create eh_TransitionData resources by clicking with the right button
+# on the FileSystem panel and choosing "New Resource" and searching for "eh_TransitionData" there, to make
 # your life easier instead of having to navigate the extensive Resource Menu in the exported var.
 
 
@@ -41,7 +41,7 @@ signal transition_finished
 export(Resource) var transition_data : Resource = null setget _set_transition_data, _get_transition_data
 
 # private variables - order: export > normal var > onready 
-var _casted_transition_data : EHJ_TransitionData = null
+var _casted_transition_data : eh_TransitionData = null
 
 onready var _color_panel: ColorRect = $Transitions
 onready var _animator: AnimationPlayer = $Transitions/AnimationPlayer
@@ -115,6 +115,13 @@ func play_fade_transition(color: Color = Color.black, duration: float = 0.5) -> 
 	
 	play_fade_out(color, duration)
 
+
+func change_transition_data_oneshot(data: eh_TransitionData) -> void:
+	var backup_transition: eh_TransitionData = transition_data
+	transition_data = data
+	yield(self, "transition_finished")
+	transition_data = backup_transition
+
 ### ---------------------------------------
 
 
@@ -154,16 +161,16 @@ func _set_playback_speed(duration: float) -> void:
 	_animator.playback_speed = 1.0 / duration
 
 
-func _set_transition_data(data : EHJ_TransitionData) -> void:
+func _set_transition_data(data : eh_TransitionData) -> void:
 	if data == null:
 		return
 	
 	transition_data = data
-	_casted_transition_data = transition_data as EHJ_TransitionData
+	_casted_transition_data = transition_data as eh_TransitionData
 
 
 
-func _get_transition_data() -> EHJ_TransitionData:
+func _get_transition_data() -> eh_TransitionData:
 	if _casted_transition_data != null:
 		return _casted_transition_data
 	else:

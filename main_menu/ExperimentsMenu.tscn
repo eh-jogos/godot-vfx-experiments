@@ -1,17 +1,18 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://main_menu/themes/dissolve3d_button.tres" type="Theme" id=1]
 [ext_resource path="res://main_menu/themes/eh_jogos_theme.tres" type="Theme" id=2]
 [ext_resource path="res://main_menu/themes/dissolve2d_button.tres" type="Theme" id=3]
 [ext_resource path="res://main_menu/themes/outline3d_button.tres" type="Theme" id=4]
 [ext_resource path="res://main_menu/themes/suspects_button.tres" type="Theme" id=5]
-[ext_resource path="res://main_menu/SceneChanger.gd" type="Script" id=6]
+[ext_resource path="res://addons/eh_jogos.transitions/custom_nodes/eh_SceneChanger.gd" type="Script" id=6]
 [ext_resource path="res://main_menu/themes/xray_mask_button.tres" type="Theme" id=7]
 [ext_resource path="res://main_menu/themes/blur_button.tres" type="Theme" id=8]
 [ext_resource path="res://main_menu/themes/shockwave_button.tres" type="Theme" id=9]
 [ext_resource path="res://fonts/eh_jogos_source/MavenPro-Medium.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://main_menu/VersionLabel.gd" type="Script" id=11]
-[ext_resource path="res://eh_jogos/transitions/examples/sweep_right.tres" type="Resource" id=12]
+[ext_resource path="res://addons/eh_jogos.transitions/transitions_data/sweep_right.tres" type="Resource" id=12]
+[ext_resource path="res://main_menu/themes/water2d_button.tres" type="Theme" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 10 )

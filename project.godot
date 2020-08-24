@@ -9,25 +9,31 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Resource",
-"class": "EHJ_TransitionData",
-"language": "GDScript",
-"path": "res://eh_jogos/transitions/custom_resources/EHJ_TransitionData.gd"
-}, {
 "base": "Area2D",
 "class": "LayerHoverDetector",
 "language": "GDScript",
 "path": "res://experiments/blur/LayerHoverDetector.gd"
 }, {
 "base": "Node",
-"class": "SceneChanger",
+"class": "RemoteVisibility",
 "language": "GDScript",
-"path": "res://main_menu/SceneChanger.gd"
+"path": "res://experiments/outlines/RemoteVisibility.gd"
+}, {
+"base": "Node",
+"class": "eh_SceneChanger",
+"language": "GDScript",
+"path": "res://addons/eh_jogos.transitions/custom_nodes/eh_SceneChanger.gd"
+}, {
+"base": "Resource",
+"class": "eh_TransitionData",
+"language": "GDScript",
+"path": "res://addons/eh_jogos.transitions/custom_resources/eh_TransitionData.gd"
 } ]
 _global_script_class_icons={
-"EHJ_TransitionData": "",
 "LayerHoverDetector": "",
-"SceneChanger": ""
+"RemoteVisibility": "",
+"eh_SceneChanger": "",
+"eh_TransitionData": ""
 }
 
 [application]
@@ -35,21 +41,27 @@ _global_script_class_icons={
 config/name="[GDQUEST] Godot Shader Secrets - Pratice and Experiments"
 run/main_scene="res://main_menu/ExperimentsMenu.tscn"
 config/icon="res://icon.png"
-config/version="0.4.0"
-config/build_folder="v0.4"
+config/version="0.6.2"
+config/build_folder="v0.6"
 
 [autoload]
 
-EHJ_Transitions="*res://eh_jogos/transitions/EHJ_Transitions.tscn"
+eh_Transitions="*res://addons/eh_jogos.transitions/eh_Transitions.tscn"
 
 [display]
 
 window/size/width=700
 window/size/height=400
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [editor]
 
 convert_text_resources_to_binary_on_export=true
+
+[editor_plugins]
+
+enabled=PoolStringArray( "eh_jogos.transitions" )
 
 [rendering]
 

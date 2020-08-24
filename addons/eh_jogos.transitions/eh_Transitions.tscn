@@ -1,15 +1,17 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://eh_jogos/transitions/shader/transition.shader" type="Shader" id=1]
-[ext_resource path="res://experiments/dissolve/pngs/linear_horizontal_grayscale.png" type="Texture" id=2]
-[ext_resource path="res://eh_jogos/transitions/EHJ_Transitions.gd" type="Script" id=3]
-[ext_resource path="res://eh_jogos/transitions/examples/sweep_right.tres" type="Resource" id=4]
+[ext_resource path="res://addons/eh_jogos.transitions/shader/transition.shader" type="Shader" id=1]
+[ext_resource path="res://addons/eh_jogos.transitions/eh_Transitions.gd" type="Script" id=2]
+[ext_resource path="res://addons/eh_jogos.transitions/transitions_data/sweep_right.tres" type="Resource" id=3]
+[ext_resource path="res://experiments/dissolve/pngs/linear_horizontal_grayscale.png" type="Texture" id=4]
+
+
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
-shader_param/cutoff = 1.0
+shader_param/cutoff = 0.0
 shader_param/smooth_size = 0.388
-shader_param/mask = ExtResource( 2 )
+shader_param/mask = ExtResource( 4 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "base"
@@ -283,10 +285,11 @@ tracks/2/keys = {
 
 [node name="TransitionLayer" type="CanvasLayer"]
 layer = 128
-script = ExtResource( 3 )
-transition_data = ExtResource( 4 )
+script = ExtResource( 2 )
+transition_data = ExtResource( 3 )
 
 [node name="Transitions" type="ColorRect" parent="."]
+visible = false
 material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0

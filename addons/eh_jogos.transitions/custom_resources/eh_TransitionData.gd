@@ -1,5 +1,5 @@
 extends Resource
-class_name EHJ_TransitionData
+class_name eh_TransitionData
 # Custom Resource (similar to ScriptableObjects in Unity) created to handle transitions
 #
 # color: the color that will fill the screen during the transition, alpha will be ignored
@@ -19,7 +19,7 @@ class_name EHJ_TransitionData
 #
 # Also there are already some basic transitions created in the examples folder.
 #
-# For simple fade in and fade out you don't need to create a EHJ_TransitionData resource, you can
+# For simple fade in and fade out you don't need to create a eh_TransitionData resource, you can
 # just use the public methods in the EHJ_Transitions scene.
 
 ### Member Variables and Dependencies -----
@@ -55,5 +55,3 @@ func _get_duration() -> float:
 	return duration
 
 ### ---------------------------------------
-
-
