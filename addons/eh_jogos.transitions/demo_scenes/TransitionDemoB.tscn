@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/eh_jogos.transitions/transitions_data/sweep_left.tres" type="Resource" id=1]
+[ext_resource path="res://addons/eh_jogos.transitions/custom_nodes/eh_SceneChanger.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.0
+margin_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -25.5
+margin_top = 32.0
+margin_right = 25.5
+margin_bottom = 46.0
+rect_scale = Vector2( 3, 3 )
+rect_pivot_offset = Vector2( 25, 0 )
+text = "Scene B"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -53.0
+margin_top = -10.0
+margin_right = 53.0
+margin_bottom = 10.0
+text = "Go to Scene A "
+
+[node name="eh_SceneChanger" type="Node" parent="Button"]
+script = ExtResource( 2 )
+_next_scene_path = "res://addons/eh_jogos.transitions/demo_scenes/TransitionDemoA.tscn"
+transition_data = ExtResource( 1 )

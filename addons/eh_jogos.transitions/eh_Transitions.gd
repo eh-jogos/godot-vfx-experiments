@@ -45,6 +45,7 @@ var _casted_transition_data : eh_TransitionData = null
 
 onready var _color_panel: ColorRect = $Transitions
 onready var _animator: AnimationPlayer = $Transitions/AnimationPlayer
+onready var _shader: ShaderMaterial = _color_panel.material
 
 ### ---------------------------------------
 
@@ -118,9 +119,9 @@ func play_fade_transition(color: Color = Color.black, duration: float = 0.5) -> 
 
 func change_transition_data_oneshot(data: eh_TransitionData) -> void:
 	var backup_transition: eh_TransitionData = transition_data
-	transition_data = data
+	self.transition_data = data
 	yield(self, "transition_finished")
-	transition_data = backup_transition
+	self.transition_data = backup_transition
 
 ### ---------------------------------------
 
@@ -167,6 +168,9 @@ func _set_transition_data(data : eh_TransitionData) -> void:
 	
 	transition_data = data
 	_casted_transition_data = transition_data as eh_TransitionData
+	
+	if _shader != null:
+		_shader.set_shader_param("mask", _casted_transition_data.mask)
 
 
 

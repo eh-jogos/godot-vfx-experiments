@@ -3,14 +3,12 @@
 [ext_resource path="res://addons/eh_jogos.transitions/shader/transition.shader" type="Shader" id=1]
 [ext_resource path="res://addons/eh_jogos.transitions/eh_Transitions.gd" type="Script" id=2]
 [ext_resource path="res://addons/eh_jogos.transitions/transitions_data/sweep_right.tres" type="Resource" id=3]
-[ext_resource path="res://experiments/dissolve/pngs/linear_horizontal_grayscale.png" type="Texture" id=4]
-
-
+[ext_resource path="res://addons/eh_jogos.transitions/textures/linear_horizontal_grayscale.png" type="Texture" id=4]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
 shader_param/cutoff = 0.0
-shader_param/smooth_size = 0.388
+shader_param/smooth_size = 0.386
 shader_param/mask = ExtResource( 4 )
 
 [sub_resource type="Animation" id=2]
