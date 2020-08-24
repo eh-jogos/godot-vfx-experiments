@@ -96,18 +96,18 @@ script = ExtResource( 6 )
 _next_scene_path = "res://experiments/shockwave/Shockwave.tscn"
 transition_data = ExtResource( 12 )
 
-[node name="Blur" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line1"]
+[node name="Water2D" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line1"]
 margin_left = 445.0
 margin_right = 615.0
 margin_bottom = 120.0
-rect_min_size = Vector2( 170, 50 )
-theme = ExtResource( 8 )
+rect_min_size = Vector2( 170, 120 )
+theme = ExtResource( 13 )
 keep_pressed_outside = true
-text = "Blur"
+text = "Water 2D"
 
-[node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line1/Blur"]
+[node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line1/Water2D"]
 script = ExtResource( 6 )
-_next_scene_path = "res://experiments/blur/GaussianBlur.tscn"
+_next_scene_path = "res://experiments/water2D/Water2D.tscn"
 transition_data = ExtResource( 12 )
 
 [node name="Line2" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
@@ -117,9 +117,23 @@ margin_bottom = 315.0
 custom_constants/separation = 20
 alignment = 1
 
-[node name="Dissolve3d" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2"]
+[node name="Blur" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2"]
 margin_left = 65.0
 margin_right = 235.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 170, 50 )
+theme = ExtResource( 8 )
+keep_pressed_outside = true
+text = "Blur"
+
+[node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2/Blur"]
+script = ExtResource( 6 )
+_next_scene_path = "res://experiments/blur/GaussianBlur.tscn"
+transition_data = ExtResource( 12 )
+
+[node name="Dissolve3d" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2"]
+margin_left = 255.0
+margin_right = 425.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 170, 120 )
 theme = ExtResource( 1 )
@@ -132,8 +146,8 @@ _next_scene_path = "res://experiments/dissolve/Dissolve3D.tscn"
 transition_data = ExtResource( 12 )
 
 [node name="Dissolve2d" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2"]
-margin_left = 255.0
-margin_right = 425.0
+margin_left = 445.0
+margin_right = 615.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 170, 50 )
 theme = ExtResource( 3 )
@@ -145,20 +159,6 @@ script = ExtResource( 6 )
 _next_scene_path = "res://experiments/dissolve/Dissolve2D.tscn"
 transition_data = ExtResource( 12 )
 
-[node name="XRayMask" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2"]
-margin_left = 445.0
-margin_right = 615.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 170, 50 )
-theme = ExtResource( 7 )
-keep_pressed_outside = true
-text = "X-Ray Mask"
-
-[node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line2/XRayMask"]
-script = ExtResource( 6 )
-_next_scene_path = "res://experiments/masking/XRayScene.tscn"
-transition_data = ExtResource( 12 )
-
 [node name="Line3" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 margin_top = 330.0
 margin_right = 680.0
@@ -167,8 +167,8 @@ custom_constants/separation = 20
 alignment = 1
 
 [node name="Outline3d" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3"]
-margin_left = 255.0
-margin_right = 425.0
+margin_left = 160.0
+margin_right = 330.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 170, 120 )
 theme = ExtResource( 4 )
@@ -180,34 +180,18 @@ script = ExtResource( 6 )
 _next_scene_path = "res://experiments/outlines/SimpleOutline3D.tscn"
 transition_data = ExtResource( 12 )
 
-[node name="Dissolve2d" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3"]
-visible = false
-margin_left = 255.0
-margin_right = 425.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 170, 50 )
-theme = ExtResource( 3 )
-keep_pressed_outside = true
-text = "Dissolve 2D"
-
-[node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3/Dissolve2d"]
-script = ExtResource( 6 )
-_next_scene_path = "res://experiments/dissolve/Dissolve2D.tscn"
-transition_data = ExtResource( 12 )
-
-[node name="Blur" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3"]
-visible = false
+[node name="XRayMask" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3"]
 margin_left = 350.0
 margin_right = 520.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 170, 50 )
-theme = ExtResource( 8 )
+theme = ExtResource( 7 )
 keep_pressed_outside = true
-text = "Blur"
+text = "X-Ray Mask"
 
-[node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3/Blur"]
+[node name="SceneChanger" type="Node" parent="ScrollContainer/MarginContainer/VBoxContainer/Line3/XRayMask"]
 script = ExtResource( 6 )
-_next_scene_path = "res://experiments/blur/GaussianBlur.tscn"
+_next_scene_path = "res://experiments/masking/XRayScene.tscn"
 transition_data = ExtResource( 12 )
 
 [node name="VersionLabel" type="Label" parent="."]
