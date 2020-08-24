@@ -38,7 +38,9 @@ func _process_texture() -> void:
 	
 	for x in range(width):
 		for y in range(height):
-			var idx : = (y * width + x) * 4
+			# This should be  * 4 in GLES3 as it should account for rgba,
+			# but in GLES2 is only rgb so it's * 3
+			var idx : = (y * width + x) * 3
 			var byte : int = raw[idx]
 			if byte > 128:
 				positions.append(Vector2(x, y)  - position)

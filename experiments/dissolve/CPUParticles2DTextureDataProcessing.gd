@@ -8,6 +8,8 @@ extends CPUParticles2D
 # public variables - order: export > normal var > onready 
 # private variables - order: export > normal var > onready
 export var _emission_mask: Texture
+export(int, 255) var _intensity_threshold: int = 128
+export var scale_reference: int = 8
  
 ### ---------------------------------------
 
@@ -42,11 +44,9 @@ func _process_texture() -> void:
 			# but in GLES2 is only rgb so it's * 3
 			var idx : = (y * width + x) * 3
 			
-#			idx = clamp(idx, 0, raw.size()-1)
-			
 			var byte : int = raw[idx]
-			if byte > 128:
-				positions.append(Vector2(x, y) * 8)
+			if byte > _intensity_threshold:
+				positions.append(Vector2(x, y) * scale_reference)
 	
 	if positions.size() == 0:
 		emitting = false
